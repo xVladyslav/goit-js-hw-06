@@ -12,7 +12,7 @@ const elements = ingredients.map(ingredient => {
   el.textContent = ingredient;
   el.className = 'item';
 
-  return el.outerHTML;
+  return el;
 })
 
-document.querySelector('ul#ingredients').innerHTML = elements.join('');
+document.querySelector('ul#ingredients').append(...elements);

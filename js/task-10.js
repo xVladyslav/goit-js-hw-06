@@ -2,7 +2,7 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
-let elementsCount = 0;
+let elements = [];
 
 const input = document.querySelector('#controls input');
 const boxes = document.querySelector('#boxes');
@@ -10,6 +10,8 @@ const createBtn = document.querySelector('#controls [data-create]');
 const destroyBtn = document.querySelector('#controls [data-destroy]');
 
 const createBoxes = (amount) => {
+  const elementsCount = elements.length;
+
   for (let i = elementsCount; i < amount + elementsCount; i++) {
     const div = document.createElement('div');
     const bgColor = getRandomHexColor();
@@ -20,14 +22,15 @@ const createBoxes = (amount) => {
     // ---------------------- need this condition because getRandomHexColor sometimes returns wrong value
     div.style.backgroundColor = bgColor.length < 7 ? '#fd5bcc' : bgColor;
 
-    boxes.append(div)
+    elements.push(div);
   }
-  elementsCount += amount;
+
+  boxes.append(...elements)
 }
 
 const destroyBoxes = () => {
   boxes.innerHTML = '';
-  elementsCount = 0;
+  elements = [];
 }
 
 createBtn.addEventListener('click', () => createBoxes(parseInt(input.value)));
